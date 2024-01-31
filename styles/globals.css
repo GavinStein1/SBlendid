@@ -2,32 +2,184 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-  }
-}
-
 body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+  font-family: 'Arial', sans-serif;
+  color: #191414;
 }
 
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
-  }
+.center-div {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.padding-5 {
+  padding: 5px;
+}
+
+.padding-20 {
+  padding: 20px;
+}
+
+.hide {
+  display: none;
+}
+
+.margin-bottom-20 {
+  margin-bottom: 20px;
+}
+
+.content-margin {
+  margin: 20px;
+  margin-top: 60px;
+}
+
+.center-h {
+  text-align: center;
+  width: 100%;
+}
+
+.group-page-container {
+  display: flex;
+}
+
+.group-left-div {
+  flex: 20%;
+  padding: 10px;
+  position: fixed;
+  height: 100vh; /* Set the height to 100% of the viewport */
+  overflow: hidden;
+  margin-left: 20px;
+  width: 20%;
+}
+
+.group-right-div {
+  flex: 80%;
+  padding: 10px;
+  overflow-y: auto;
+  margin-left: 20%;
+}
+
+.expandable-section {
+  max-height: 100px; /* Set a maximum height to create the initial collapsed state */
+  overflow: hidden;
+  transition: max-height 0.3s ease-out; /* Add a smooth transition effect */
+}
+
+.expanded {
+  max-height: none;
+  margin-top: 20px;
+}
+
+.navbar-fixed {
+  position: fixed;
+}
+
+.show-hide-button {
+  width: 100%;
+  padding: 5px;
+  /* border-radius: 5px; */
+}
+
+.show-hide-button:hover {
+  background-color: #eee;
+}
+
+.show-hide-button:focus-visible {
+  border-width: 0px;
+}
+
+.group-header-container {
+  display: flex;
+}
+
+.group-header-div {
+  flex: 50%;
+}
+
+.margin-top-20 {
+  margin-top: 20px;
+}
+
+.under-header {
+  margin-top: 60px;
+}
+
+h1 {
+  font-weight: bold;
+  font-size: large;
+}
+
+.primary-color {
+  color: #427AA1;
+}
+
+.on-primary {
+  color: white;
+}
+
+.primary-background-color {
+  background-color: #427AA1;
+}
+
+.half-width {
+  width: 50%;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.center {
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}
+
+.main-container {
+  display: flex;
+}
+
+.main-div {
+  flex: 20%;
+  margin: 40px;
+  padding: 0px 80px;
+}
+
+.background-img {
+  position: relative;
+  /* width: 100%; */
+  height: 80vh;
+  background: linear-gradient(to right, rgba(255, 255, 255, 1), rgba(255, 255, 255, 1), rgba(255, 255, 255, 0)), url("/artist-bg-img.png");
+  background-size: contain;
+  background-position: right;
+  background-repeat: no-repeat;
+  overflow: hidden;
+}
+
+.margin-10 {
+  margin: 10px;
+}
+
+.background-img-mob {
+  position: relative;
+  /* width: 100%; */
+  height: 80vh;
+  background: linear-gradient(to right, rgba(255, 255, 255, 1), rgba(255, 255, 255, 1), rgba(255, 255, 255, 0)), url("/artist-bg-img.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  overflow: hidden;
+}
+
+.opaque-bg {
+  background-color: rgba(255, 255, 255, 0.8);
+  border-radius: 10px;
+  padding: 10px;
+}
+
+.edit-icon {
+  margin-top: auto;
+  margin-bottom: auto;
 }
