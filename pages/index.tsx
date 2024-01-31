@@ -12,6 +12,7 @@ interface Group {
 }
 
 export default function Home() {
+  console.log(process.env.VERCEL_URL);
   const clientID = "015128077904436f9d8db713e728695f";
   const scope = "user-top-read user-read-private user-read-email playlist-modify-public";
   const redirectURI = process.env.VERCEL_URL ? 'https://' + process.env.VERCEL_URL + "/callback" : 'http://localhost:3000/callback';
