@@ -15,7 +15,7 @@ export default function Home() {
   console.log(process.env.VERCEL_URL);
   const clientID = "015128077904436f9d8db713e728695f";
   const scope = "user-top-read user-read-private user-read-email playlist-modify-public";
-  const redirectURI = process.env.VERCEL_URL ? 'https://' + process.env.VERCEL_URL + "/callback" : 'http://localhost:3000/callback';
+  var redirectURI = "";
   const authUrl = new URL("https://accounts.spotify.com/authorize");
   const [accessToken, setAccessToken] = useState<string | null>("");
   const [groups, setGroups] = useState<Group[]>([]);
@@ -95,6 +95,8 @@ export default function Home() {
 
   useEffect(() => {
     if (typeof window !== "undefined") {
+      redirectURI = process.env.VERCEL_URL ? 'https://' + process.env.VERCEL_URL + "/callback" : 'http://localhost:3000/callback';
+      console.log(redirectURI);
       const handleResize = () => {
         setIsMobile(window.innerWidth <= 768);
         console.log(window.innerWidth);
