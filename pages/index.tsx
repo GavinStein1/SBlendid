@@ -12,7 +12,7 @@ interface Group {
 }
 
 export default function Home() {
-  const clientID = "015128077904436f9d8db713e728695f";
+  const clientID = !process.env.SPOT_CLIENT_ID ? "" : process.env.SPOT_CLIENT_ID;
   const scope = "user-top-read user-read-private user-read-email playlist-modify-public";
   var redirectURI = "";
   const authUrl = new URL("https://accounts.spotify.com/authorize");
@@ -66,6 +66,7 @@ export default function Home() {
       code_challenge: codeChallenge,
       redirect_uri: redirectURI,
     }
+    console.log(params);
     // Go to auth endpoint
     authUrl.search = new URLSearchParams(params).toString();
     window.location.href = authUrl.toString();

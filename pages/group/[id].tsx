@@ -31,7 +31,7 @@ interface Group {
 export default function Group() {
   const router = useRouter();
   const { id } = router.query;
-  const clientID = "015128077904436f9d8db713e728695f";
+  const clientID = !process.env.SPOT_CLIENT_ID ? "" : process.env.SPOT_CLIENT_ID;
   const scope = "user-top-read user-read-private user-read-email playlist-modify-public";
   var redirectURI = "";
   const authUrl = new URL("https://accounts.spotify.com/authorize");
