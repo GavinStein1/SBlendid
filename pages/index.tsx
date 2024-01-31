@@ -96,7 +96,7 @@ export default function Home() {
   useEffect(() => {
     if (typeof window !== "undefined") {
       redirectURI = process.env.VERCEL_URL ? 'https://' + process.env.VERCEL_URL + "/callback" : 'http://localhost:3000/callback';
-      console.log(redirectURI);
+      console.log(process.env.NEXT_PUBLIC_VERCEL_URL);
       const handleResize = () => {
         setIsMobile(window.innerWidth <= 768);
         console.log(window.innerWidth);
