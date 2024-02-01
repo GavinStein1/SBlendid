@@ -96,7 +96,7 @@ export default function Home() {
   useEffect(() => {
     if (typeof window !== "undefined") {
       redirectURI = process.env.NEXT_PUBLIC_VERCEL_URL ? 'https://s-blendid.vercel.app/callback' : 'http://localhost:3000/callback';
-      clientID = !process.env.SPOT_CLIENT_ID ? "" : process.env.SPOT_CLIENT_ID;
+      clientID = !process.env.NEXT_PUBLIC_VERCEL_URL ? "015128077904436f9d8db713e728695f" : "d0469b414ffa4d9d9c462d4adc6545f2";
       const handleResize = () => {
         setIsMobile(window.innerWidth <= 768);
         console.log(window.innerWidth);
