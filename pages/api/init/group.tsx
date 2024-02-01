@@ -1,6 +1,8 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import * as neo4j from "neo4j-driver";
 
+export const maxDuration = 24;
+
 export default async function handler(
     req: NextApiRequest,
     res: NextApiResponse,
