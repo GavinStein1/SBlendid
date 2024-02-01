@@ -34,14 +34,9 @@ export default async function handler(
       res.status(500).json({status: "Failed", message: "Could not get data from Spotify"});
       return;
     }
-    var userURI = "";
-    try {
-      const json = await userDataResponse.json();
-      userURI = json.uri;
-    } catch (error) {
-      console.log(userDataResponse.headers.get('Content-Type'));
-      return;
-    }
+    console.log("user data response: ", userDataResponse);
+    const json = await userDataResponse.json();
+    const userURI = json.uri;
 
     // Get user info from DB with matching URI
     let driver;
@@ -52,6 +47,7 @@ export default async function handler(
         res.status(500).json({status: "Failed", message: "Failed to connect to database"});
         return;
       }
+      console.log("getting neo4j driver");
       driver = neo4j.driver(DBURI, neo4j.auth.basic(user, neo4jPassword));
       await driver.getServerInfo();
       session = driver.session();
@@ -60,6 +56,7 @@ export default async function handler(
       res.status(500).json({status: "Failed", message: "Failed to connect to database"});
       return;
     }
+    console.log("session set.");
     const query = `
         MATCH (user:User {uri: $userURI})
         RETURN user;
@@ -72,14 +69,17 @@ export default async function handler(
     const result = await session.run(query, parameters);
     const records = result.records;
     if (records.length == 0) {
-        res.status(210).json({status: "Success", message: "User does not exist"});
-        return;
+      console.log("no user");
+      res.status(210).json({status: "Success", message: "User does not exist"});
+      return;
     } else if (records.length > 1) {
-        res.status(500).json({status: "Failed", message: "Error getting user info"});
-        return;
+      console.log("more than one response");
+      res.status(500).json({status: "Failed", message: "Error getting user info"});
+      return;
     } else {
-        const user = records[0].get("user");
-        userData = user.properties;
+      console.log("user found");
+      const user = records[0].get("user");
+      userData = user.properties;
     }
     session.close();
     res.status(200).json({status: "Success", userData});
