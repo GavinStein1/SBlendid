@@ -12,9 +12,9 @@ interface Group {
 }
 
 export default function Home() {
-  var clientID = "";
+  var clientID = "d0469b414ffa4d9d9c462d4adc6545f2";
   const scope = "user-top-read user-read-private user-read-email playlist-modify-public";
-  var redirectURI = "";
+  var redirectURI = "https://s-blendid.vercel.app/callback";
   const authUrl = new URL("https://accounts.spotify.com/authorize");
   const [accessToken, setAccessToken] = useState<string | null>("");
   const [groups, setGroups] = useState<Group[]>([]);
@@ -95,8 +95,11 @@ export default function Home() {
 
   useEffect(() => {
     if (typeof window !== "undefined") {
-      redirectURI = process.env.NEXT_PUBLIC_VERCEL_URL ? 'https://s-blendid.vercel.app/callback' : 'http://localhost:3000/callback';
-      clientID = !process.env.NEXT_PUBLIC_VERCEL_URL ? "015128077904436f9d8db713e728695f" : "d0469b414ffa4d9d9c462d4adc6545f2";
+      if (window.location.href.includes("localhost")) {
+        redirectURI = "http://localhost:3000/callback";
+        clientID = "015128077904436f9d8db713e728695f";
+      }
+      
       const handleResize = () => {
         setIsMobile(window.innerWidth <= 768);
         console.log(window.innerWidth);

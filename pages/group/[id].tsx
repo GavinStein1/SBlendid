@@ -31,9 +31,9 @@ interface Group {
 export default function Group() {
   const router = useRouter();
   const { id } = router.query;
-  var clientID = "";
+  var clientID = "d0469b414ffa4d9d9c462d4adc6545f2";
   const scope = "user-top-read user-read-private user-read-email playlist-modify-public";
-  var redirectURI = "";
+  var redirectURI = "https://s-blendid.vercel.app/callback";
   const authUrl = new URL("https://accounts.spotify.com/authorize");
   const [accessToken, setAccessToken] = useState("");
   const [artists, setArtists] = useState<Artist[]>([]);
@@ -52,8 +52,10 @@ export default function Group() {
     if (!id) {
       return;
     }
-    redirectURI = process.env.NEXT_PUBLIC_VERCEL_URL ? 'https://s-blendid.vercel.app/callback' : 'http://localhost:3000/callback';
-    clientID = !process.env.NEXT_PUBLIC_VERCEL_URL ? "015128077904436f9d8db713e728695f" : "d0469b414ffa4d9d9c462d4adc6545f2";
+    if (window.location.href.includes("localhost")) {
+      redirectURI = "http://localhost:3000/callback";
+      clientID = "015128077904436f9d8db713e728695f";
+    }
     // Check Spotify access token
     const access = localStorage.getItem("access_token");
     const expiry = localStorage.getItem("token_expiry");
