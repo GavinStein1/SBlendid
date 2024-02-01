@@ -12,7 +12,7 @@ interface Group {
 }
 
 export default function Home() {
-  const clientID = !process.env.SPOT_CLIENT_ID ? "" : process.env.SPOT_CLIENT_ID;
+  var clientID = "";
   const scope = "user-top-read user-read-private user-read-email playlist-modify-public";
   var redirectURI = "";
   const authUrl = new URL("https://accounts.spotify.com/authorize");
@@ -96,6 +96,7 @@ export default function Home() {
   useEffect(() => {
     if (typeof window !== "undefined") {
       redirectURI = process.env.NEXT_PUBLIC_VERCEL_URL ? 'https://s-blendid.vercel.app/callback' : 'http://localhost:3000/callback';
+      clientID = !process.env.SPOT_CLIENT_ID ? "" : process.env.SPOT_CLIENT_ID;
       const handleResize = () => {
         setIsMobile(window.innerWidth <= 768);
         console.log(window.innerWidth);
