@@ -57,8 +57,6 @@ export default async function handler(
     const userPage = json.href;
     const userID = json.id;
 
-    console.log(userID);
-
     // create user data if not already in DB
     var query = `
       MERGE (user:User {uri: $uri})
