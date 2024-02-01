@@ -34,10 +34,14 @@ export default async function handler(
       res.status(500).json({status: "Failed", message: "Could not get data from Spotify"});
       return;
     }
-
-    const json = await userDataResponse.json();
-    const userURI = json.uri;
-    console.log(userURI);
+    var userURI = "";
+    try {
+      const json = await userDataResponse.json();
+      userURI = json.uri;
+    } catch (error) {
+      console.log(userDataResponse.headers.get('Content-Type'));
+      return;
+    }
 
     // Get user info from DB with matching URI
     let driver;

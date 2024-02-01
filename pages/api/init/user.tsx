@@ -96,7 +96,6 @@ export default async function handler(
     var popularity;
 
     const items = jsonData.items;
-    console.log("getting artists");
     for (var i = 0; i < items.length; i ++) {
       artistURI = items[i].uri;
       genres = items[i].genres;
@@ -123,7 +122,6 @@ export default async function handler(
         userURI,
         i: i + 1
       }
-      console.log(name = items[i].name);
       await session.run(query, queryParams);
     }
 
