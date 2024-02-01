@@ -57,6 +57,8 @@ export default async function handler(
     const userPage = json.href;
     const userID = json.id;
 
+    console.log(userID);
+
     // create user data if not already in DB
     var query = `
       MERGE (user:User {uri: $uri})
@@ -94,6 +96,7 @@ export default async function handler(
     var popularity;
 
     const items = jsonData.items;
+    console.log("getting artists");
     for (var i = 0; i < items.length; i ++) {
       artistURI = items[i].uri;
       genres = items[i].genres;

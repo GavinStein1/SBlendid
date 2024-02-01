@@ -37,6 +37,7 @@ export default async function handler(
 
     const json = await userDataResponse.json();
     const userURI = json.uri;
+    console.log(userURI);
 
     // Get user info from DB with matching URI
     let driver;
