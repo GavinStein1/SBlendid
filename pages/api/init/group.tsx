@@ -13,7 +13,12 @@ export default async function handler(
         res.status(500).json({status: "Failed", message: "Missing access token param"});    
         return;
     }
-    const baseUrl = process.env.VERCEL_URL ? 'https://' + process.env.VERCEL_URL : 'http://localhost:3000';
+    var baseUrl = "";
+    if (req.url?.includes("localhost")) {
+        baseUrl = "http://localhost:3000";
+    } else {
+        baseUrl = "https://s-blendid.vercel.app"
+    }
     const payload = {
       method: 'POST',
       headers: {

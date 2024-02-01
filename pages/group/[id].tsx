@@ -89,7 +89,12 @@ export default function Group() {
       
       const getData = async () => {
         localStorage.setItem("group_id", groupID);
-        const baseUrl = process.env.VERCEL_URL ? 'https://' + process.env.VERCEL_URL : 'http://localhost:3000';
+        var baseUrl = "";
+        if (window.location.href.includes("localhost")) {
+          baseUrl = "http://localhost:3000";
+        } else {
+          baseUrl = "https://s-blendid.vercel.app";
+        }
         const payload = {
           method: 'POST',
           headers: {
