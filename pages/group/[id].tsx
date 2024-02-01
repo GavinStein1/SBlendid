@@ -53,7 +53,7 @@ export default function Group() {
       return;
     }
     redirectURI = process.env.NEXT_PUBLIC_VERCEL_URL ? 'https://s-blendid.vercel.app/callback' : 'http://localhost:3000/callback';
-    clientID = !process.env.SPOT_CLIENT_ID ? "" : process.env.SPOT_CLIENT_ID;
+    clientID = !process.env.NEXT_PUBLIC_SPOT_CLIENT_ID ? "" : process.env.NEXT_PUBLIC_SPOT_CLIENT_ID;
     // Check Spotify access token
     const access = localStorage.getItem("access_token");
     const expiry = localStorage.getItem("token_expiry");
