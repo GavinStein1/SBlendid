@@ -68,16 +68,18 @@ export default async function handler(
         groupID,
         name
     }
-    const result = await session.run(query, parameters);
-    if (result.records.length == 0) {
-      res.status(500).json({status: "Failed", message: "Failed DB query"});
-    }
-    const record = result.records[0].get("group").properties;
-    
-    session.close();
-    console.log(record)
-    
-    res.status(200).json({record});
+    session.run(query, parameters).then(result => {
+      if (result.records.length == 0) {
+        res.status(500).json({status: "Failed", message: "Failed DB query"});
+      } else {
+        const record = result.records[0].get("group").properties;
+        res.status(200).json({record});
+      }
+    }).catch(error => {
+      res.status(500).json({status: "Error", message: "Failed parsing DB data", error});
+    }).finally(async () => {
+      session.close();
+    })
 }
 
 function generateRandomString(length: number): string {

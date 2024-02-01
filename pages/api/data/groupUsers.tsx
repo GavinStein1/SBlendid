@@ -60,23 +60,24 @@ export default async function handler(
         groupID
     }
 
-    const results = await session.run(query, parameters);
-    const records = results.records;
-    var users = [];
-    var hasUserURI = false;
-    for (var i = 0; i < records.length; i ++) {
-        users.push(records[i].get("user").properties);
-        if (records[i].get("user").properties.uri === userData.uri) {
-            hasUserURI = true;
+    session.run(query, parameters).then(results => {
+        const records = results.records;
+        var users = [];
+        var hasUserURI = false;
+        for (var i = 0; i < records.length; i ++) {
+            users.push(records[i].get("user").properties);
+            if (records[i].get("user").properties.uri === userData.uri) {
+                hasUserURI = true;
+            }
         }
-    }
-    session.close();
-
-    if (hasUserURI) {
-        res.status(200).json({ users });
-        return;
-    } else {
-        res.status(420).json({status: "Invalid", message: "You are not a member of this group"});
-        return;
-    }
+        if (hasUserURI) {
+            res.status(200).json({ users });
+        } else {
+            res.status(420).json({status: "Invalid", message: "You are not a member of this group"});
+        }
+    }).catch(error => {
+        res.status(500).json({status: "Error", message: "Failed parsing DB data", error});
+    }).finally(async () => {
+        await session.close();
+    })    
 }

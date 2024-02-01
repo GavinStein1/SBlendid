@@ -63,8 +63,8 @@ export default async function handler(
         groupID
     }
 
-    const results = await session.run(query, parameters);
-    session.close();
-    res.status(200).json({status: "Success"});
-    return;
+    session.run(query, parameters).then(async () => {
+      await session.close();
+      res.status(200).json({status: "Success"});
+    })    
 }

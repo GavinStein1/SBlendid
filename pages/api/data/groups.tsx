@@ -58,13 +58,17 @@ export default async function handler(
         userURI: userData.uri
     }
 
-    const results = await session.run(query, parameters);
-    const records = results.records;
-    var groups = [];
-    for (var i = 0; i < records.length; i ++) {
-        groups.push(records[i].get("group"));
-    }
-    session.close();
+    session.run(query, parameters).then(results => {
+        const records = results.records;
+        var groups = [];
+        for (var i = 0; i < records.length; i ++) {
+            groups.push(records[i].get("group"));
+        }
+        res.status(200).json({groups});
+    }).catch(error => {
+        res.status(500).json({status: "Error", message: "Failed parsing DB data", error});
+    }).finally(async () => {
+        await session.close();
+    })    
     
-    res.status(200).json({groups});
 }

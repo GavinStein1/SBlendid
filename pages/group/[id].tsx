@@ -31,9 +31,9 @@ interface Group {
 export default function Group() {
   const router = useRouter();
   const { id } = router.query;
-  var clientID = "d0469b414ffa4d9d9c462d4adc6545f2";
+  const [clientID, setClientID] = useState("d0469b414ffa4d9d9c462d4adc6545f2");
+  const [redirectURI, setRedirectURI] = useState("https://s-blendid.vercel.app/callback");
   const scope = "user-top-read user-read-private user-read-email playlist-modify-public";
-  var redirectURI = "https://s-blendid.vercel.app/callback";
   const authUrl = new URL("https://accounts.spotify.com/authorize");
   const [accessToken, setAccessToken] = useState("");
   const [artists, setArtists] = useState<Artist[]>([]);
@@ -53,8 +53,8 @@ export default function Group() {
       return;
     }
     if (window.location.href.includes("localhost")) {
-      redirectURI = "http://localhost:3000/callback";
-      clientID = "015128077904436f9d8db713e728695f";
+      setRedirectURI("http://localhost:3000/callback");
+      setClientID("015128077904436f9d8db713e728695f");
     }
     // Check Spotify access token
     const access = localStorage.getItem("access_token");
@@ -295,13 +295,16 @@ export default function Group() {
                           <CircularProgress aria-label="Loading..." />
                         </div>
                       ) : (
-                        <div className="mt-6 center-h">
-                          <Button 
-                            className="padding-5 half-width margin-bottom-20"
-                            color="secondary"
-                            onClick={blendPlaylist}
-                            isLoading={isBlending}
-                          >{isBlending ? "Blending..." : "Blend"}</Button>
+                        <div className="mt-6">
+                          <div className="center-h">
+                            <Button 
+                              className="padding-5 half-width margin-bottom-20 auto-side-margins"
+                              color="secondary"
+                              onClick={blendPlaylist}
+                              isLoading={isBlending}
+                            >{isBlending ? "Blending..." : "Blend"}
+                            </Button>
+                          </div>
                           <div className="padding-20 grid grid-cols-1 gap-5">
                             {artists.slice(0,5).map( (artist, index) => {
                               return <ArtistCard artistURI={artist.uri} key={index}/>

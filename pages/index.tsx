@@ -12,9 +12,9 @@ interface Group {
 }
 
 export default function Home() {
-  var clientID = "d0469b414ffa4d9d9c462d4adc6545f2";
+  const [clientID, setClientID] = useState("d0469b414ffa4d9d9c462d4adc6545f2");
+  const [redirectURI, setRedirectURI] = useState("https://s-blendid.vercel.app/callback");
   const scope = "user-top-read user-read-private user-read-email playlist-modify-public";
-  var redirectURI = "https://s-blendid.vercel.app/callback";
   const authUrl = new URL("https://accounts.spotify.com/authorize");
   const [accessToken, setAccessToken] = useState<string | null>("");
   const [groups, setGroups] = useState<Group[]>([]);
@@ -96,8 +96,8 @@ export default function Home() {
   useEffect(() => {
     if (typeof window !== "undefined") {
       if (window.location.href.includes("localhost")) {
-        redirectURI = "http://localhost:3000/callback";
-        clientID = "015128077904436f9d8db713e728695f";
+        setRedirectURI("http://localhost:3000/callback");
+        setClientID("015128077904436f9d8db713e728695f");
       }
       
       const handleResize = () => {
@@ -147,7 +147,7 @@ export default function Home() {
     }
     
   }, [accessToken]);
-
+  
   return (
     <div>
       {isMobile ? (
@@ -156,7 +156,7 @@ export default function Home() {
               buttonText={!accessToken ? "Connect Spotify" : "Make a blend"}
               buttonOnClick={!accessToken ? 
                 doAuthentication : async () => {
-                  const id = await createGroup("My new Blend");
+                  const id = await createGroup("My new blend");
                   return id;}}
               />
         </div>
@@ -167,7 +167,7 @@ export default function Home() {
               buttonText={!accessToken ? "Connect Spotify" : "Make a blend"}
               buttonOnClick={!accessToken ? 
                 doAuthentication : async () => {
-                  const id = await createGroup("My new Blend");
+                  const id = await createGroup("My new blend");
                   return id;}}
               />
           </div>

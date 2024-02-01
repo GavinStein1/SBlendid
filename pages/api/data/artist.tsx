@@ -46,20 +46,24 @@ export default async function handler(
         id
     }
 
-    const results = await session.run(query, parameters);
-    if (results.records.length == 0) {
+    session.run(query, parameters).then( results => {
+      if (results.records.length == 0) {
         res.status(215).json({status: "Complete", message: "No artists to share"});
-        return;
-    }
-
-    const records = results.records;
-    const artists = [];
-    const userCounts = [];
-    const weights = [];
-    for (var i = 0; i < records.length; i ++) {
-        artists.push(records[i].get("artist"));
-        userCounts.push(records[i].get("userCount").low);
-        weights.push(records[i].get("weight"));
-    }
-    res.status(200).json({ artists, userCounts, weights });
+      } else {
+        const records = results.records;
+        const artists = [];
+        const userCounts = [];
+        const weights = [];
+        for (var i = 0; i < records.length; i ++) {
+            artists.push(records[i].get("artist"));
+            userCounts.push(records[i].get("userCount").low);
+            weights.push(records[i].get("weight"));
+        }
+        res.status(200).json({ artists, userCounts, weights });
+      }
+    }).catch(error => {
+      res.status(500).json({status: "Error", message: "Failed parsing DB data", error});
+    }).finally(async () => {
+      await session.close();
+    });
 }

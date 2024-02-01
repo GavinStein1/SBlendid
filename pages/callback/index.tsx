@@ -1,16 +1,27 @@
 import { useRouter } from "next/router";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { CircularProgress } from "@nextui-org/react";
 import checkToken from "@/scripts/checkToken";
 
 export default function Callback() {
     const router = useRouter();
 
-    var clientID = "d0469b414ffa4d9d9c462d4adc6545f2";
-    var redirectURI = "https://s-blendid.vercel.app/callback";
     const tokenURL = "https://accounts.spotify.com/api/token";
 
     const getToken = async (code: string) => {
+        
+        var tmpClientID = "";
+        var tmpRedirectURI = "";
+        
+        if (typeof window !== "undefined") {
+            if (window.location.href.includes("localhost")) {
+                tmpRedirectURI = "http://localhost:3000/callback";
+                tmpClientID = "015128077904436f9d8db713e728695f";
+            } else {
+                tmpClientID = "d0469b414ffa4d9d9c462d4adc6545f2";
+                tmpRedirectURI = "https://s-blendid.vercel.app/callback";
+            }
+        }
 
         let codeVerifier = localStorage.getItem('code_verifier');
         if (!codeVerifier) {
@@ -24,10 +35,10 @@ export default function Callback() {
             'Content-Type': 'application/x-www-form-urlencoded',
           },
           body: new URLSearchParams({
-            client_id: clientID,
+            client_id: tmpClientID,
             grant_type: 'authorization_code',
             code,
-            redirect_uri: redirectURI,
+            redirect_uri: tmpRedirectURI,
             code_verifier: codeVerifier,
           })
         };
@@ -47,10 +58,6 @@ export default function Callback() {
     }
 
     useEffect(() => {
-        if (window.location.href.includes("localhost")) {
-            redirectURI = "http://localhost:3000/callback";
-            clientID = "015128077904436f9d8db713e728695f";
-        }
         const urlParams = new URLSearchParams(window.location.search);
         const code = urlParams.get('code');
         if (!code) {
@@ -101,10 +108,11 @@ export default function Callback() {
         }
         runAsyc();
     }, []);
-
+    
     return (
         <div className="center-div">
             <CircularProgress aria-label="Loading..." />
+            <p>Loading</p>
         </div>
     )
 }

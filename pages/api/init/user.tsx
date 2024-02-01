@@ -123,7 +123,7 @@ export default async function handler(
       await session.run(query, queryParams);
     }
 
-    session.close();
+    await session.close();
     res.status(200).json({status: "Complete"});
   }
   

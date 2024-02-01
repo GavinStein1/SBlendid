@@ -68,16 +68,25 @@ export default async function handler(
     const parameters = {
         groupID
     }
+    var groupName = ""
+    var records: neo4j.Record<neo4j.RecordShape, PropertyKey, neo4j.RecordShape<PropertyKey, number>>[] = [];
+    session.run(query, parameters).then(results => {
+        records = results.records;
+        if (records.length < 1) {
+            res.status(500).json({status: "Failed", message: "Failed getting artists from DB"});
+            
+        } else {
+            groupName = records[0].get("name");
+        }
+    }).catch(error => {
+        res.status(500).json({status: "Failed", message: "error during result processing form DB", error});
+    }).finally(async () => {
+        await session.close();
+    })
 
-    const results = await session.run(query, parameters);
-    const records = results.records;
-    if (records.length < 1) {
-        res.status(500).json({status: "Failed", message: "Failed getting artists from DB"});
+    if (!groupName) {
         return;
     }
-    
-    const groupName = records[0].get("name");
-    session.close();
 
     // 1. Create playlist
     var bodyData = {

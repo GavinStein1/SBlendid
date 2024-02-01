@@ -61,16 +61,19 @@ export default async function handler(
         userURI: userData.uri
     }
 
-    const results = await session.run(query, parameters);
-    session.close();
-    const records = results.records;
+    session.run(query, parameters).then(results => {
+        const records = results.records;
 
-    if (records.length != 1) {
-        res.status(500).json({status: "Failed", message: "You are not a member of this group"});
-        return;
-    }
-
-    const groupData = records[0].get("group").properties;
-    res.status(200).json({ groupData });
+        if (records.length != 1) {
+            res.status(500).json({status: "Failed", message: "You are not a member of this group"});
+        } else {
+            const groupData = records[0].get("group").properties;
+            res.status(200).json({ groupData });
+        }
+    }).catch(error => {
+        res.status(500).json({status: "Error", message: "Failed parsing DB data", error});
+    }).finally(async () => {
+        await session.close();
+    })
     return;
 }
