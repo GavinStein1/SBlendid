@@ -6,8 +6,8 @@ import checkToken from "@/scripts/checkToken";
 export default function Callback() {
     const router = useRouter();
 
-    const clientID = "015128077904436f9d8db713e728695f";
-    const redirectURI = "http://localhost:3000/callback";
+    var clientID = "d0469b414ffa4d9d9c462d4adc6545f2";
+    var redirectURI = "https://s-blendid.vercel.app/callback";
     const tokenURL = "https://accounts.spotify.com/api/token";
 
     const getToken = async (code: string) => {
@@ -47,6 +47,10 @@ export default function Callback() {
     }
 
     useEffect(() => {
+        if (window.location.href.includes("localhost")) {
+            redirectURI = "http://localhost:3000/callback";
+            clientID = "015128077904436f9d8db713e728695f";
+        }
         const urlParams = new URLSearchParams(window.location.search);
         const code = urlParams.get('code');
         if (!code) {
