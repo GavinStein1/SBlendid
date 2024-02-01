@@ -14,6 +14,7 @@ export default async function handler(
 
     // Neo4j params
     const neo4jPassword = process.env.NEO4J_PASSWORD;
+    console.log(neo4jPassword);
     const DBURI = "neo4j+s://5a2557f6.databases.neo4j.io";
     const user = "neo4j";
 
