@@ -44,6 +44,7 @@ export default async function handler(
     let session: neo4j.Session;
     try {
       if (typeof neo4jPassword === "undefined" || neo4jPassword === "") {
+        console.log("neo4j failed no password");
         res.status(500).json({status: "Failed", message: "Failed to connect to database"});
         return;
       }
@@ -51,7 +52,7 @@ export default async function handler(
       await driver.getServerInfo();
       session = driver.session();
     } catch (error) {
-      console.error(error);
+      console.error("error!: ", error);
       res.status(500).json({status: "Failed", message: "Failed to connect to database"});
       return;
     }
