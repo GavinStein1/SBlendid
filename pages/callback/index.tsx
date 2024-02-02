@@ -89,8 +89,7 @@ export default function Callback() {
                     } else if (userResponse.status != 200) {
                         throw new Error("Error getting user info");
                     }
-                    console.log("Here");
-                    console.log(userResponse.headers.get("Content-Type"));
+                    
                     const userBody = await userResponse.json();
                     localStorage.setItem("user_uri", userBody.userData.uri);
                     localStorage.setItem("user_display_name", userBody.userData.user_id);

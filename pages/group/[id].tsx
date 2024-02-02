@@ -52,6 +52,8 @@ export default function Group() {
     if (!id) {
       return;
     }
+    let groupID: string = typeof id === "string" ? id : (id[0] as string);
+    localStorage.setItem("group_id", groupID);
     if (window.location.href.includes("localhost")) {
       setRedirectURI("http://localhost:3000/callback");
       setClientID("015128077904436f9d8db713e728695f");
@@ -65,7 +67,7 @@ export default function Group() {
         return;
       }
       setAccessToken(access);
-      let groupID: string = typeof id === "string" ? id : (id[0] as string);
+      
       
       // Check user is a member of the group
       const checkUser = async () => {
@@ -79,6 +81,16 @@ export default function Group() {
             groupID
           })
         }
+        var userResponse = await fetch("/api/data/user", requestPayload);
+        if (userResponse.status == 210) {  // 210 indicates no user found with that user uri
+            const response = await fetch("/api/init/user", requestPayload);
+            if (response.status != 200) {
+                throw new Error("Error initialising new user");
+            }
+            userResponse = await fetch("/api/data/user", requestPayload);
+        } else if (userResponse.status != 200) {
+            throw new Error("Error getting user info");
+        }
         const groupUserResponse = await fetch("/api/data/groupUsers", requestPayload);
         if (groupUserResponse.status == 420) {
           // Add user to group
@@ -88,7 +100,6 @@ export default function Group() {
       }
       
       const getData = async () => {
-        localStorage.setItem("group_id", groupID);
         var baseUrl = "";
         if (window.location.href.includes("localhost")) {
           baseUrl = "http://localhost:3000";
