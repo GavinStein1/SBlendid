@@ -111,7 +111,6 @@ export default function Callback() {
     return (
         <div className="center-div">
             <CircularProgress aria-label="Loading..." />
-            <p>Loading</p>
         </div>
     )
 }

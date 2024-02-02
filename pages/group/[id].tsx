@@ -47,6 +47,7 @@ export default function Group() {
   const [isEditting, setIsEditting] = useState(false);
   const [groupName, setGroupName] = useState("");
   const [isBlending, setIsBlending] = useState(false);
+  const [loadingStatus, setLoadingStatus] = useState("");
 
   useEffect(() => {
     if (!id) {
@@ -71,6 +72,7 @@ export default function Group() {
       
       // Check user is a member of the group
       const checkUser = async () => {
+        setLoadingStatus("Checking blend membership...");
         const requestPayload = {
           method: 'POST',
           headers: {
@@ -81,21 +83,12 @@ export default function Group() {
             groupID
           })
         }
-        var userResponse = await fetch("/api/data/user", requestPayload);
-        if (userResponse.status == 210) {  // 210 indicates no user found with that user uri
-            const response = await fetch("/api/init/user", requestPayload);
-            if (response.status != 200) {
-                throw new Error("Error initialising new user");
-            }
-            userResponse = await fetch("/api/data/user", requestPayload);
-        } else if (userResponse.status != 200) {
-            throw new Error("Error getting user info");
-        }
         const groupUserResponse = await fetch("/api/data/groupUsers", requestPayload);
         if (groupUserResponse.status == 420) {
           // Add user to group
           await fetch("/api/init/addUser", requestPayload);
-          router.push(`/group/${groupID}`);
+          console.log("refresh...");
+          router.reload();
         }
       }
       
@@ -116,7 +109,12 @@ export default function Group() {
             id: groupID
           })
         };
+        setLoadingStatus("Judging music taste...");
         const groupResponse = await fetch(`${baseUrl}/api/data/group`, payload);
+        if (groupResponse.status != 200) {
+          console.log("error group response");
+          router.push("/"); // Change to push to error page
+        }
         const groupJson = await groupResponse.json();
         setGroup(groupJson.groupData);
         setGroupName(groupJson.groupData.name);
@@ -124,10 +122,13 @@ export default function Group() {
         const artistResponse = await fetch("/api/data/artist", payload);
         if (artistResponse.status == 215) {
           throw new Error("No shared artists");
+          // router.push("/"); // Change to push to error page
         } else if (artistResponse.status != 200) {
           throw new Error("Error getting artists");
+          // router.push("/"); // Change to push to error page
         }
         const jsonData = await artistResponse.json();
+        setLoadingStatus("hmmm...");
         var tmpArtists: Artist[] = [];
         var tmpWeights: number[] = [];
         var tmpUserCounts: number[] = [];
@@ -146,8 +147,8 @@ export default function Group() {
         setIsMobile(window.innerWidth <= 768);
       };
 
-      checkUser().then(() => {
-        getData();
+      checkUser().then(async () => {
+        await getData();
       });
 
       // initial screen check
@@ -268,8 +269,11 @@ export default function Group() {
   return (
       <div>
         {isLoadingGroup ? (
-          <div className="center-div">
-            <CircularProgress aria-label="Loading..." />
+          <div>
+            <div className="center-div primary-color flex">
+              <CircularProgress aria-label="Loading..." className="flex-initial mr-6"/>
+              <p className="flex-initial edit-icon">{loadingStatus}</p>
+            </div>
           </div>
         ) : (
           <div>

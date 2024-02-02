@@ -8,6 +8,7 @@ export default async function handler(
     const accessToken = req.body.accessToken;
     const groupID = req.body.id;
     if (!accessToken || !groupID) {
+        console.log("missing params");
         res.status(500).json({status: "Failed", message: "Missing params"});    
         return;
     }
@@ -30,7 +31,11 @@ export default async function handler(
     }
     const userResponse = await fetch(`${baseUrl}/api/data/user`, payload);
     if (userResponse.status != 200) {
+        console.log("error getting user data");
+        const errJson = await userResponse.json();
+        console.log(errJson);
         res.status(500).json({status: "error getting user data"});
+        return;
     }
 
     const body = await userResponse.json();
@@ -52,6 +57,7 @@ export default async function handler(
       session = driver.session();
     } catch (error) {
       console.error(error);
+      console.log("ERROR");
       res.status(500).json({status: "Failed", message: "Failed to connect to database"});
       return;
     }
@@ -70,7 +76,7 @@ export default async function handler(
         const records = results.records;
 
         if (records.length != 1) {
-            res.status(500).json({status: "Failed", message: "You are not a member of this group"});
+            res.status(511).json({status: "Failed", message: "You are not a member of this group"});
         } else {
             const groupData = records[0].get("group").properties;
             res.status(200).json({ groupData });
