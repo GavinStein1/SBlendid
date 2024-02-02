@@ -30,7 +30,11 @@ export default async function handler(
     }
     const userResponse = await fetch(`${baseUrl}/api/data/user`, payload);
     if (userResponse.status != 200) {
+        console.log("error getting user data");
+        const errJson = await userResponse.json();
+        console.log(errJson);
         res.status(500).json({status: "error getting user data"});
+        return;
     }
 
     const body = await userResponse.json();
@@ -81,6 +85,7 @@ export default async function handler(
             res.status(420).json({status: "Invalid", message: "You are not a member of this group"});
         }
     }).catch(error => {
+        console.log("Failed parsing DB data");
         res.status(500).json({status: "Error", message: "Failed parsing DB data", error});
     }).finally(async () => {
         await session.close();
