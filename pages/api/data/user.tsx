@@ -32,6 +32,8 @@ export default async function handler(
     }
     if (userDataResponse.status != 200) {
       console.log(userDataResponse);
+      const uDResponseJson = await userDataResponse.json();
+      console.log(uDResponseJson);
       res.status(500).json({status: "Failed", message: "Could not get data from Spotify"});
       return;
     }
