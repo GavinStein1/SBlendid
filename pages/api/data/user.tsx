@@ -33,6 +33,9 @@ export default async function handler(
     }
     if (userDataResponse.status != 200) {
       console.log("Spotify user data response failed");
+      console.log("url: ",userDataResponse.url);
+      console.log(userDataResponse.headers);
+      console.log("statusText: ",userDataResponse.statusText);
       console.log(userDataResponse.status);
       res.status(502).json({status: "Failed", message: "Could not get data from Spotify"});
       return;
