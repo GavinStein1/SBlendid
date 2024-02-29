@@ -32,15 +32,14 @@ export default async function handler(
     }
     if (userDataResponse.status != 200) {
       console.log("Spotify user data response failed");
-      console.log("url: ",userDataResponse.url);
-      console.log("header auth", headers.get("Authorization"));
-      console.log("statusText: ",userDataResponse.statusText);
-      console.log(userDataResponse.status);
+      // console.log("url: ",userDataResponse.url);
+      // console.log("header auth", headers.get("Authorization"));
+      // console.log("statusText: ",userDataResponse.statusText);
+      // console.log(userDataResponse.status);
       res.status(502).json({status: "Failed", message: "Could not get data from Spotify"});
       return;
     }
     const json = await userDataResponse.json();
-    console.log("json: ", json);
     const userURI = json.uri;
 
     // Get user info from DB with matching URI

@@ -64,7 +64,7 @@ const ArtistItem: React.FC<ArtistProps> = ({ uri }) => {
             <User 
                 name={artist.name}
                 avatarProps={{
-                    src: !artist || !artist.images ? "" : artist.images[0].url
+                    src: !artist || !artist.images[0] ? "" : artist.images[0].url
                 }}
             />
 
