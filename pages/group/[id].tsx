@@ -237,7 +237,6 @@ export default function Group() {
   }
 
   async function blendPlaylist() {
-    window.open("https://open.spotify.com/playlist/2AuLcQCP9dKN7fPzTGApUn");
     setIsBlending(true);
     const access = localStorage.getItem("access_token");
     const groupID = group?.id;

@@ -8,7 +8,7 @@ export default async function handler(
   ) {
     const accessToken = req.body.accessToken;
     if (!accessToken) {
-        res.status(500).json({status: "Failed", message: "Missing access token param"});    
+        res.status(501).json({status: "Failed", message: "Missing access token param"});
         return;
     }
 
@@ -31,10 +31,8 @@ export default async function handler(
       throw new NoAuth("Invalid token");
     }
     if (userDataResponse.status != 200) {
-      console.log(userDataResponse);
-      const uDResponseJson = await userDataResponse.json();
-      console.log(uDResponseJson);
-      res.status(500).json({status: "Failed", message: "Could not get data from Spotify"});
+      console.log("Spotify user data response failed");
+      res.status(502).json({status: "Failed", message: "Could not get data from Spotify"});
       return;
     }
     const json = await userDataResponse.json();
@@ -46,7 +44,7 @@ export default async function handler(
     try {
       if (typeof neo4jPassword === "undefined" || neo4jPassword === "") {
         console.log("Failed to connect to database");
-        res.status(500).json({status: "Failed", message: "Failed to connect to database"});
+        res.status(503).json({status: "Failed", message: "Failed to connect to database"});
         return;
       }
       driver = neo4j.driver(DBURI, neo4j.auth.basic(user, neo4jPassword));
@@ -54,7 +52,7 @@ export default async function handler(
     } catch (error) {
       console.error("error!: ", error);
       console.log("Failed to connect to database");
-      res.status(500).json({status: "Failed", message: "Failed to connect to database"});
+      res.status(504).json({status: "Failed", message: "Failed to connect to database"});
       return;
     }
     const query = `
@@ -72,7 +70,7 @@ export default async function handler(
       if (records.length == 0) {
         res.status(210).json({status: "Success", message: "User does not exist"});
       } else if (records.length > 1) {
-        res.status(500).json({status: "Failed", message: "Error getting user info"});
+        res.status(505).json({status: "Failed", message: "Error getting user info"});
         console.log("Error getting user info");
       } else {
         const user = records[0].get("user");
@@ -80,7 +78,7 @@ export default async function handler(
         res.status(200).json({status: "Success", userData});
       }
     }).catch(error => {
-      res.status(500).json({status: "Failed", message: "error during result processing form DB", error});
+      res.status(506).json({status: "Failed", message: "error during result processing form DB", error});
       console.log("error during result processing form DB");
     }).finally(async () => {
       await session.close();

@@ -87,7 +87,7 @@ export default async function handler(
     if (!groupName) {
         return;
     }
-
+    console.log("group name: ", groupName);
     // 1. Create playlist
     var bodyData = {
         name: groupName,
