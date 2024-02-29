@@ -80,7 +80,7 @@ const ArtistCard: React.FC<CardParams> = ({ artistURI }) => {
                         <Image
                             alt="Card background"
                             className="object-cover rounded-xl"
-                            src={artist.images.length >= 1 ? artist.images[0].url : ""}
+                            src={artist.images.length  >= 1 && artist.images[0] ? artist.images[0].url : ""}
                         />
                     </CardBody>
                 </Card>

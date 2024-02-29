@@ -63,7 +63,7 @@ const MemberItem: React.FC<Member> = ({ username }) => {
                     </Link>
                 )}
                 avatarProps={{
-                    src: user?.images[0].url
+                    src: user?.images[0] ? user?.images[0].url : ""
                 }}
             />
 
