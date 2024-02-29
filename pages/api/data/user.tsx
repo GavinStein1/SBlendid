@@ -18,7 +18,6 @@ export default async function handler(
     const user = "neo4j";
 
     // Get user info
-    console.log(accessToken);
     const serverURL = "https://api.spotify.com/v1";
     const headers = new Headers({
       'Authorization': `Bearer ${accessToken}`
@@ -41,6 +40,7 @@ export default async function handler(
       return;
     }
     const json = await userDataResponse.json();
+    console.log("json: ", json);
     const userURI = json.uri;
 
     // Get user info from DB with matching URI
