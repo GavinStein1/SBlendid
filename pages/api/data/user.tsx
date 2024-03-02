@@ -32,6 +32,7 @@ export default async function handler(
     }
     if (userDataResponse.status != 200) {
       console.log("Spotify user data response failed");
+      console.log(userDataResponse.status);
       // console.log("url: ",userDataResponse.url);
       // console.log("header auth", headers.get("Authorization"));
       // console.log("statusText: ",userDataResponse.statusText);
