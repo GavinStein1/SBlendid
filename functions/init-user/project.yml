@@ -12,4 +12,4 @@ packages:
           web: true
           webSecure: false
           environment: 
-            NEO4J_PASSWORD: "uFpk2bEDXZ5mFap255n6J8yY8A4Z1M-5OBWXA7vlWjw"
+            NEO4J_PASSWORD: ""
