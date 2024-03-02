@@ -66,7 +66,6 @@ export default function Home() {
       code_challenge: codeChallenge,
       redirect_uri: redirectURI,
     }
-    console.log(params);
     // Go to auth endpoint
     authUrl.search = new URLSearchParams(params).toString();
     window.location.href = authUrl.toString();
@@ -102,7 +101,6 @@ export default function Home() {
       
       const handleResize = () => {
         setIsMobile(window.innerWidth <= 768);
-        console.log(window.innerWidth);
       };
 
       // initial screen check

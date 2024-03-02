@@ -82,6 +82,8 @@ export default async function handler(
         res.status(200).json({status: "Success", userData});
       }
     }).catch(error => {
+      console.log(neo4jPassword);
+      // console.log(error);
       res.status(506).json({status: "Failed", message: "error during result processing form DB", error});
       console.log("error during result processing form DB");
     }).finally(async () => {

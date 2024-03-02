@@ -81,7 +81,7 @@ export default function Callback() {
                     // Get user data & create if does not exist
                     var userResponse = await fetch("/api/data/user", payload);
                     if (userResponse.status == 210) {  // 210 indicates no user found with that user uri
-                        const response = await fetch("/api/init/user", payload);
+                        const response = await fetch("https://faas-syd1-c274eac6.doserverless.co/api/v1/web/fn-932a2f2e-ac27-4caa-a3ce-30940a9ab43a/init/user", payload);
                         if (response.status != 200) {
                             throw new Error("Error initialising new user");
                         }
