@@ -85,9 +85,30 @@ export default function Callback() {
                         if (response.status != 200) {
                             throw new Error("Error initialising new user");
                         }
-                        userResponse = await fetch("/api/data/user", payload);
-                    } else if (userResponse.status != 200) {
-                        throw new Error("Error getting user info");
+                        const checkUserStatus = () => {
+                            let flag = true;
+                          
+                            // Use setInterval to execute the loop every second
+                            const intervalId = setInterval(async () => {                          
+                                // Your while loop condition
+                                console.log("loop");
+                                if (!flag) {
+                                    // Stop the loop
+                                    clearInterval(intervalId);
+                                }
+                                userResponse = await fetch("/api/data/user", payload);
+                                if (userResponse.status == 210) {
+                                    return;
+                                } else if (userResponse.status == 200) {
+                                    flag = false;
+                                    return;
+                                } else {
+                                    throw new Error("Error getting user info");
+                                    flag = false;
+                                    return;
+                                }
+                            }, 1000);
+                          };
                     }
                     
                     const userBody = await userResponse.json();
@@ -111,6 +132,7 @@ export default function Callback() {
     return (
         <div className="center-div">
             <CircularProgress aria-label="Loading..." />
+            <p>getting your fav artists...</p>
         </div>
     )
 }
