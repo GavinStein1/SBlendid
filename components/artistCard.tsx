@@ -1,7 +1,7 @@
 "user client"
 
 import checkToken from "@/scripts/checkToken";
-import {Card, CardHeader, CardBody, Image} from "@nextui-org/react";
+import {Card, CardHeader, CardBody, Image, CardFooter} from "@nextui-org/react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
@@ -83,6 +83,12 @@ const ArtistCard: React.FC<CardParams> = ({ artistURI }) => {
                             src={artist.images.length  >= 1 && artist.images[0] ? artist.images[0].url : ""}
                         />
                     </CardBody>
+                    <CardFooter>
+                        <Image 
+                            alt="spotify logo"
+                            src="./02_PNG/Spotify_Logo_RGB_Black.png"
+                        />
+                    </CardFooter>
                 </Card>
             </Link>
         </div>
