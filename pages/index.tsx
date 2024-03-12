@@ -149,7 +149,7 @@ export default function Home() {
   return (
     <div>
       {isMobile ? (
-        <div className="under-header padding-20 background-img-mob">
+        <div className="padding-20 background-img-mob">
           <HomeCard 
               buttonText={!accessToken ? "Connect Spotify" : "Make a blend"}
               buttonOnClick={!accessToken ? 
@@ -159,7 +159,7 @@ export default function Home() {
               />
         </div>
       ) : (
-        <div className="under-header main-container padding-20 background-img">
+        <div className="main-container padding-20 background-img">
           <div className="main-div">
             <HomeCard 
               buttonText={!accessToken ? "Connect Spotify" : "Make a blend"}

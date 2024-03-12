@@ -20,7 +20,7 @@ const HomeCard: React.FC<CardProps> = ({ buttonText, buttonOnClick }) => {
             <div className="center-h">
                 <Button 
                     className="half-width center-h margin-top-20"
-                    color="secondary"
+                    color="primary"
                     onClick={async () => {
                         setIsBlendButtonLoading(true);
                         const id = await buttonOnClick();

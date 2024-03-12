@@ -21,17 +21,17 @@ const config: Config = {
     themes: {
       light: {
         colors: {
-          background: "#FFF", // or DEFAULT
-          foreground: "#1A1D23", // or 50 to 900 DEFAULT
+          background: "#9851F6", // or DEFAULT
+          foreground: "#FFF", // or 50 to 900 DEFAULT
           primary: {
             //... 50 to 900
-            foreground: "#FFF",
-            DEFAULT: "#427AA1",
+            foreground: "#9851F6",
+            DEFAULT: "#FFF",
           },
           secondary: {
             //... 50 to 900
             foreground: "#FFF",
-            DEFAULT: "#F28F3B",
+            DEFAULT: "#7001F8",
           },
           // ... rest of the colors
         },

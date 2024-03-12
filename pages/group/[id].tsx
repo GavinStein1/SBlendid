@@ -280,7 +280,7 @@ export default function Group() {
               <div>
                 <div className="padding-20">
                   {isEditting ? (
-                    <div className="flex under-header item-center">
+                    <div className="flex item-center">
                       <input 
                         type="text"
                         value={groupName}
@@ -297,7 +297,7 @@ export default function Group() {
                         className="w-6 h-6 primary-color edit-icon"/>
                     </div>
                   ) : (
-                    <div className="flex under-header item-center">
+                    <div className="flex item-center">
                       <h1 className="text-3xl font-bold text-shadow mr-4 primary-color flex-initial">{groupName}</h1>
                       <FontAwesomeIcon className="flex-initial w-6 h-6 primary-color edit-icon" icon={faPencilAlt} onClick={() => {
                         setIsEditting(true);
@@ -367,7 +367,7 @@ export default function Group() {
                 <div className="group-page-container">
                   <div className="group-left-div">
                     {isEditting ? (
-                      <div className="flex under-header item-center">
+                      <div className="flex item-center">
                         <input 
                           type="text"
                           value={groupName}
@@ -384,7 +384,7 @@ export default function Group() {
                           className="w-6 h-6 primary-color edit-icon"/>
                       </div>
                     ) : (
-                      <div className="flex under-header item-center">
+                      <div className="flex item-center">
                         <h1 className="text-3xl font-bold text-shadow mr-4 primary-color flex-initial">{groupName}</h1>
                         <FontAwesomeIcon className="flex-initial w-6 h-6 primary-color edit-icon" icon={faPencilAlt} onClick={() => {
                           setIsEditting(true);

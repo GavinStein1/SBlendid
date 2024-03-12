@@ -47,18 +47,6 @@ export default function Header() {
                     
                 </NavbarContent>
                 <NavbarContent justify="end">
-                    <NavbarItem>
-                        {!accessToken ? (
-                            <div></div>
-                        ) : (
-                            // <Button variant="solid" color="secondary" onClick={() => {
-                            //     createGroup("New blend");
-                            // }}>
-                            //     New blend
-                            // </Button>
-                            <div></div>
-                        )}
-                    </NavbarItem>
                 </NavbarContent>
             </Navbar>
         </div>
