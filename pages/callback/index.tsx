@@ -80,6 +80,20 @@ export default function Callback() {
                     
                     // Get user data & create if does not exist
                     var userResponse = await fetch("/api/data/user", payload);
+                    const redirectUser = async () => {
+                        const userBody = await userResponse.json();
+                        localStorage.setItem("user_uri", userBody.userData.uri);
+                        localStorage.setItem("user_display_name", userBody.userData.user_id);
+                        localStorage.setItem("user_href", userBody.userData.href);
+                        
+                        // redirect to group if exists
+                        const groupID = localStorage.getItem("group_id");
+                        if (!groupID) {
+                            router.push("/");
+                        } else {
+                            router.push(`/group/${groupID}`);
+                        }
+                    }
                     if (userResponse.status == 210) {  // 210 indicates no user found with that user uri
                         const response = await fetch("https://faas-syd1-c274eac6.doserverless.co/api/v1/web/fn-932a2f2e-ac27-4caa-a3ce-30940a9ab43a/init/user", payload);
                         if (response.status != 200) {
@@ -101,27 +115,13 @@ export default function Callback() {
                                     return;
                                 } else if (userResponse.status == 200) {
                                     flag = false;
-                                    return;
+                                    await redirectUser();
                                 } else {
                                     throw new Error("Error getting user info");
-                                    flag = false;
-                                    return;
                                 }
                             }, 1000);
-                          };
-                    }
-                    
-                    const userBody = await userResponse.json();
-                    localStorage.setItem("user_uri", userBody.userData.uri);
-                    localStorage.setItem("user_display_name", userBody.userData.user_id);
-                    localStorage.setItem("user_href", userBody.userData.href);
-                    
-                    // redirect to group if exists
-                    const groupID = localStorage.getItem("group_id");
-                    if (!groupID) {
-                        router.push("/");
-                    } else {
-                        router.push(`/group/${groupID}`);
+                        };
+                        checkUserStatus();
                     }
                 }
             )
