@@ -139,7 +139,7 @@ export default function Callback() {
                 <CircularProgress aria-label="Loading..." />
             </div>
             <div className="center-div pt-20">
-                <p>getting your fav artists...</p>
+                <p className="primary-color">getting your fav artists...</p>
             </div>
         </div>
     )
