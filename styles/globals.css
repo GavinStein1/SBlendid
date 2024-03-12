@@ -192,10 +192,11 @@ h1 {
 .spotify-logo {
   display: block;
   width: 70px;
+  min-width: 70px;
+  margin: 10.5px;
 }
 
 .logo-container {
   position: relative;
   width: 100%;
-  margin: 35px;
 }
