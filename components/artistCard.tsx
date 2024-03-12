@@ -83,7 +83,7 @@ const ArtistCard: React.FC<CardParams> = ({ artistURI }) => {
                             src={artist.images.length  >= 1 && artist.images[0] ? artist.images[0].url : ""}
                         />
                     </CardBody>
-                    <CardFooter>
+                    <CardFooter className="py-0 px-4">
                         <div className="logo-container">
                             <Image 
                                 alt="spotify logo"
