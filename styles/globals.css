@@ -188,3 +188,26 @@ h1 {
   margin-left: auto;
   margin-right: auto;
 }
+
+.spotify-logo {
+  display: block;
+  max-width: 80%;
+  min-width: 70px;
+}
+
+.logo-container {
+  position: relative;
+  width: 100%;
+}
+
+.exclusion-zone {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 50%;
+  height: 50%;
+  background-color: red;
+  opacity: 0.5;
+  pointer-events: none;
+}

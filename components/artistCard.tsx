@@ -84,11 +84,14 @@ const ArtistCard: React.FC<CardParams> = ({ artistURI }) => {
                         />
                     </CardBody>
                     <CardFooter>
-                        <Image 
-                            alt="spotify logo"
-                            src="/02_PNG/Spotify_Logo_RGB_Black.png"
-                            height={70}
-                        />
+                        <div className="logo-container">
+                            <Image 
+                                alt="spotify logo"
+                                src="/02_PNG/Spotify_Logo_RGB_Black.png"
+                                className="spotify-logo"
+                            />
+                            <div className="exclusion-zone"></div>
+                        </div>
                     </CardFooter>
                 </Card>
             </Link>
