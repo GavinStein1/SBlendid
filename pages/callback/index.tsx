@@ -19,7 +19,7 @@ export default function Callback() {
                 tmpClientID = "015128077904436f9d8db713e728695f";
             } else {
                 tmpClientID = "d0469b414ffa4d9d9c462d4adc6545f2";
-                tmpRedirectURI = "https://s-blendid.vercel.app/callback";
+                tmpRedirectURI = "https://splendit.au/callback";
             }
         }
 
@@ -122,6 +122,10 @@ export default function Callback() {
                             }, 1000);
                         };
                         checkUserStatus();
+                    } else if (userResponse.status == 200) {
+                        await redirectUser();
+                    } else {
+                        throw new Error("Error getting user info");
                     }
                 }
             )
@@ -130,9 +134,13 @@ export default function Callback() {
     }, []);
     
     return (
-        <div className="center-div">
-            <CircularProgress aria-label="Loading..." />
-            <p>getting your fav artists...</p>
+        <div>
+            <div className="center-div">
+                <CircularProgress aria-label="Loading..." />
+            </div>
+            <div className="center-div pt-20">
+                <p>getting your fav artists...</p>
+            </div>
         </div>
     )
 }
