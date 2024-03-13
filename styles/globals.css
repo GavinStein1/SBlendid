@@ -44,6 +44,10 @@ body {
   width: 100%;
 }
 
+.black-text {
+  color: black;
+}
+
 .group-page-container {
   display: flex;
 }

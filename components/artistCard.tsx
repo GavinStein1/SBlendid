@@ -73,7 +73,7 @@ const ArtistCard: React.FC<CardParams> = ({ artistURI }) => {
             <Link href={artist.external_urls.spotify} target="_blank" rel="noopener noreferrer">
                 <Card className="py-4">
                     <CardHeader className="pb-0 pt-2 px-4 flex-col items-start">
-                        <p className="text-tiny uppercase font-bold">{artist.name}</p>
+                        <p className="text-tiny uppercase font-bold black-text">{artist.name}</p>
                         <small className="text-default-500">{artist.genres.length >= 1 ? artist.genres[0] : "-"}</small>
                     </CardHeader>
                     <CardBody className="overflow-visible py-2">
