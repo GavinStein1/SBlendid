@@ -5,10 +5,10 @@
 body {
   font-family: 'Arial', sans-serif;
   color: #191414;
-  /* background: linear-gradient(rgba(112, 1, 248, 0.5), rgba(112, 1, 248, 0.5)),
-              url('../public/ripples.png') repeat; */
-  /* opacity: 0.7; */
-  background-color: #9851F6; /* Adjust color and alpha as needed */
+  background: linear-gradient(rgba(171, 81, 255, 0.574), rgba(171, 81, 255, 0.574)),
+              url('../public/1bgnd.png') repeat;
+  overflow: visible;
+  /* background-color: #9851F6; /* Adjust color and alpha as needed */
 }
 
 .center-div {

@@ -17,7 +17,7 @@ export default async function handler(
     if (req.url?.includes("localhost")) {
         baseUrl = "http://localhost:3000";
     } else {
-        baseUrl = "https://s-blendid.vercel.app"
+        baseUrl = "https://splendit.au"
     }
     const payload = {
       method: 'POST',
