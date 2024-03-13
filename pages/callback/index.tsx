@@ -19,7 +19,7 @@ export default function Callback() {
                 tmpClientID = "015128077904436f9d8db713e728695f";
             } else {
                 tmpClientID = "d0469b414ffa4d9d9c462d4adc6545f2";
-                tmpRedirectURI = "https://splendit.au/callback";
+                tmpRedirectURI = "https://www.splendit.au/callback";
             }
         }
 

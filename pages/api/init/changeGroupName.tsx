@@ -20,7 +20,7 @@ export default async function handler(
     if (req.url?.includes("localhost")) {
         baseUrl = "http://localhost:3000";
     } else {
-        baseUrl = "https://splendit.au"
+        baseUrl = "https://www.splendit.au"
     }
     const payload = {
         method: 'POST',

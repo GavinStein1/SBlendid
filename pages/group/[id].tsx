@@ -32,7 +32,7 @@ export default function Group() {
   const router = useRouter();
   const { id } = router.query;
   const [clientID, setClientID] = useState("d0469b414ffa4d9d9c462d4adc6545f2");
-  const [redirectURI, setRedirectURI] = useState("https://splendit.au/callback");
+  const [redirectURI, setRedirectURI] = useState("https://www.splendit.au/callback");
   const scope = "user-top-read user-read-private user-read-email playlist-modify-public";
   const authUrl = new URL("https://accounts.spotify.com/authorize");
   const [accessToken, setAccessToken] = useState("");
@@ -97,7 +97,7 @@ export default function Group() {
         if (window.location.href.includes("localhost")) {
           baseUrl = "http://localhost:3000";
         } else {
-          baseUrl = "https://splendit.au";
+          baseUrl = "https://www.splendit.au";
         }
         const payload = {
           method: 'POST',
